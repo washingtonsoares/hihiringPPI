@@ -1,0 +1,10 @@
+development:
+  server: "http://locahost:9292/faye/faye"
+  secret_token: "secret"
+test:
+  server: "http://locahost:9292/faye/faye"
+  secret_token: "secret"
+production:
+  server: "http://limitless-waters-6365.herokuapp.com/faye/faye"
+  secret_token: "batkaro"
+  signature_expiration: 86400 # one day

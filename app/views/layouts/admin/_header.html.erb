@@ -1,0 +1,55 @@
+<header id="header_menu" class="header white-bg">
+
+  <div id="menu_principal" class="navbar-header">
+
+    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+
+    <!--logo start-->
+    <a href="index.html" class="logo"></a>
+    <!--logo end-->
+
+    <div class="horizontal-menu navbar-collapse collapse ">
+
+      <ul class="nav navbar-nav">
+        <li>
+          <%= link_to admin_user_path(current_user),id: "home-top" do %>
+            <i class="icon-home" ></i>
+          <% end %>
+        </li>
+        <li class="dropdown">
+          <a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><i class="icon-bookmark" id="i_publications"></i>Publicações
+            <i id="header_menu" class=" icon-angle-down"></i></a>
+          <ul id="menu-principal" class="dropdown-menu">
+            <li>
+              <%# link_to "Explorar",admin_publications_path %>
+              <%= link_to admin_publications_path do %>
+                <i id="header_submen" class="icon-circle-blank"></i>Todas Publicações
+              <% end %>
+            </li>
+            <li>
+              <%# link_to admin_user_my_publications_path(current_user.id) do %>
+              <%= link_to admin_user_my_publications_path(current_user.id) do %>
+                <i id="header_submen" class="icon icon-paste"></i> Minhas Publicações
+              <% end %>
+            </li>
+            <li>
+              <a id="abre_modal" href="#myModal" data-toggle="modal" class="">
+                <i id="header_submen" class="icon icon-plus"></i>Adicionar publicação
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <%= render :partial => 'admin/users/notification' %>
+        </li>
+      </ul>
+    </div>
+
+    <%= render :partial => 'admin/users/loged' %>
+
+  </div>
+</header>

@@ -1,0 +1,5 @@
+$("#myModal").modal('hide');
+$("#list_publications").prepend("<%= j render("/admin/users/publications/publication.html.erb") %>");
+$("#cria_publicacao").trigger("reset");
+
+<%= add_gritter("Publicação criada com sucesso!", :title => "Noticia!",:time => 2000 ) %>

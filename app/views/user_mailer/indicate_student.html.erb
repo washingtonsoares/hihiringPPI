@@ -1,0 +1,4 @@
+<h2>Olá,</h2>
+<p>Você está recebendo este email, por que o Professor <strong> <%= @indicador.name %></strong> indicou o perfil do(a) aluno(a)<strong> <%= @aluno.name %> </strong> para uma futura vaga de trabalho.</p> 
+<p>Para acompanhar de perto <strong><%= @aluno.name %></strong>, acesse o seu, <%= link_to "perfil", "http://0.0.0.0:3000"+admin_user_path(@aluno.id) %> em <a href="https://github.com/eduardovrocha/safira">hihiring.me</a></p>
+<p><a href="https://github.com/eduardovrocha/safira">Conheça mais sobre nós</a></p>

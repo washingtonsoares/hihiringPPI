@@ -1,0 +1,16 @@
+
+<% publish_to @path do %>
+    //alert("nova solicitação de amizade do usuario <%= @enviador.name %>");
+
+        tamanho_notificacoes = $("#not1").text();
+        tamanho_notificacoes = parseInt(tamanho_notificacoes);
+        tamanho_notificacoes+=1;
+        $(".qtd_marcacoes").text("");
+        $(".qtd_marcacoes").text(tamanho_notificacoes);
+        $(".content_qtd_marcacoes").after("<%= j render("lista") %>");
+
+	console.log("certo");
+	alert("certo");
+
+
+<% end %>

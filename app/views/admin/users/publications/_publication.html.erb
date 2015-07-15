@@ -1,0 +1,34 @@
+<li class="col-lg-6  publication_item">
+  <div id="publication_list_thumb" class="">
+
+    <!--widget start-->
+    <section class="">
+
+      <div id="publication_list_thumb_layout" class="twt-feed" style="height: 60px; background-image: url('<%= @publication.thumb_url(:thumb_publication)%>')">
+
+        <p id="email_publication_owner_list" class="">
+          <% if current_user.id == @publication.user_id %>
+            <%= link_to "Editar Conteudo",edit_admin_user_publication_path(current_user, @publication), class: "editarConteudo pull-right"  %>
+          <% end %>
+        </p>
+        <h2></h2>
+      </div>
+
+      <div id="publication_list_descript" class="weather-category twt-category">
+        <h4 class="titulo_publication_list">
+          <i class="icon icon-user"></i>
+          <%= link_to admin_user_publication_path(@publication.user_id, @publication.id) do %>
+            <%= truncate(@publication.title, length: 25) %>
+          <% end %>
+        </h4>
+
+        <p class="descrip_public">
+          <%= truncate(@publication.resume, length: 90) { link_to ' visualizar', admin_user_publication_path(retornaNomeFormatado(@publication.user_id), @publication) } %>
+        </p>
+      </div>
+
+    </section>
+    <!--widget end-->
+
+  </div>
+</li>

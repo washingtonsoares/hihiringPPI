@@ -1,0 +1,3 @@
+$(".lista_notifications_users").remove();
+$(".qtd_marcacoes").text("").text("<%= @newNotifications.size %>");
+$(".content_qtd_marcacoes").after("<%= j render("lista") %>");

@@ -1,0 +1,65 @@
+body {
+  /*collapse publication at show*/
+  /*collapse publication at show*/
+  /*modal add publications*/
+  /*users charts*/ }
+  body header.panel-body {
+    border-bottom: 1px solid #f1f1f1; }
+  body div#accordion i#del_publication {
+    color: #FF6A56;
+    margin-right: 0px; }
+  body div#accordion i#qtd_comment {
+    color: lightblue; }
+  body div#accordion i#qtd_score {
+    color: orange; }
+  body div#accordion a.accordion-toggle {
+    font-weight: 500; }
+  body div#accordion div.panel-default {
+    margin-top: 0px;
+    border-bottom: 1px solid #f1f1f1; }
+    body div#accordion div.panel-default a {
+      font-size: 12px; }
+      body div#accordion div.panel-default a i {
+        margin-right: 5px; }
+      body div#accordion div.panel-default a span {
+        margin-top: 4px;
+        font-weight: normal; }
+        body div#accordion div.panel-default a span i {
+          margin-left: 10px;
+          margin-right: 5px; }
+    body div#accordion div.panel-default div.panel-body {
+      border-top: 1px solid #f1f1f1; }
+      body div#accordion div.panel-default div.panel-body hr {
+        margin-top: 10px;
+        margin-bottom: 10px; }
+      body div#accordion div.panel-default div.panel-body p.publication_statistics {
+        margin: 0px;
+        font-size: 12px; }
+        body div#accordion div.panel-default div.panel-body p.publication_statistics a i {
+          margin-right: 5px; }
+        body div#accordion div.panel-default div.panel-body p.publication_statistics i {
+          margin-left: 5px; }
+  body div#user_profile {
+    background-color: #ffffff; }
+  body span#count_caracters {
+    color: #e8e8e8; }
+  body section.panel .morris-hover {
+    position: absolute;
+    z-index: 1000; }
+  body section.panel .morris-hover.morris-default-style {
+    border-radius: 10px;
+    padding: 6px;
+    color: #666;
+    background: rgba(255, 255, 255, 0.8);
+    border: solid 2px rgba(230, 230, 230, 0.8);
+    font-family: sans-serif;
+    font-size: 12px;
+    text-align: center; }
+  body section.panel .morris-hover.morris-default-style .morris-hover-row-label {
+    font-weight: bold;
+    margin: 0.25em 0; }
+  body section.panel .morris-hover.morris-default-style .morris-hover-point {
+    white-space: nowrap;
+    margin: 0.1em 0; }
+  body section.panel #hero-graph, body section.panel #hero-bar, body section.panel #hero-area, body section.panel #hero-donut {
+    height: 250px; }

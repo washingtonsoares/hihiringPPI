@@ -1,0 +1,44 @@
+<div class="top-nav ">
+  <ul class="nav pull-right top-menu">
+    <li>
+      <%= form_tag admin_publications_path, :method => 'get',id: "busca_publicacao" do %>
+        <p>
+          <%= text_field_tag :search, params[:search],class: "form-control search" ,placeholder: " Search",id: "content_busca"%>
+        </p>
+      <% end %>
+    </li>
+    <!-- user login dropdown start-->
+    <li class="dropdown">
+      <a id='logged_menu' data-toggle="dropdown" class="dropdown-toggle" href="#">
+        <%= image_tag "http://graph.facebook.com/#{current_user.uid}/picture?type=large", :style => 'width: 24px; height: 24px;' %>
+
+        <span class="username"><%# current_user.name %></span>
+        <b class="caret"></b>
+      </a>
+      <ul class="dropdown-menu extended logout">
+        <div class="log-arrow-up"></div>
+        <li>
+          <%= link_to admin_user_path(current_user) do %>
+            <i class ="icon-user"></i> Perfil
+          <% end %>
+
+          <!--
+            <a href="#"><i class=" icon-suitcase"></i>Profile</a>
+          -->
+
+        </li>
+
+        <li><a href="#" class="disabled"><i class="icon-cog disabled"></i> Ajustes</a></li>
+        <li><a href="#" class="disabled"><i class="icon-bell-alt disabled"></i> Alertas</a></li>
+
+        <li id="sair">
+          <%# link_to "Log Out", destroy_user_session_path, :method => :delete,:class=>"icon-key"%>
+          <%= link_to destroy_user_session_path, :method => :delete do %>
+            Sair
+          <% end %>
+        </li>
+      </ul>
+    </li>
+    <!-- user login dropdown end -->
+  </ul>
+</div>

@@ -1,0 +1,98 @@
+<aside id="grp_info_1" class="profile-nav col-lg-3">
+
+  <%= render :partial => 'profile.html.erb' %>
+
+</aside>
+
+<aside id="grp_info_2" class="profile-info col-lg-9">
+
+  <%= form_for :user, url: admin_user_path(@user), remote: true, html: {class: "form-horizontal tasi-form"}, method: :patch do |f| %>
+
+
+    <section class="panel">
+      <header class="panel-heading">
+        <i class="icon icon-gears"></i> Edite suas informações básicas
+      </header>
+
+      <div class="panel-body">
+        <div class="form-group">
+          <div class="col-sm-12">
+            <%= f.text_field :name, class: "form-control", :disabled => true %>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-12">
+            <%= f.text_field :email, class: "form-control", :disabled => true %>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-md-3 col-xs-11">
+            <div data-date-viewmode="years" data-date-format="dd-mm-yyyy" data-date="12-02-2012" class="input-append date dpYears">
+              <%= f.text_field :idade, :class => 'form-control', :value => '12-02-2012', :size => 16, :readonly => '' %>
+              <span class="input-group-btn add-on">
+                <button class="btn btn-danger" type="button">
+                  <i class="icon-calendar"></i>
+                </button>
+              </span>
+              <span class="help-block">data de nascimento</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <section class="panel">
+
+      <div class="panel-body">
+
+        <div class="form-group">
+          <div class="col-sm-12">
+            <%= f.text_field :curso, class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-sm-12">
+            <%= f.text_field :faculdade, class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-sm-12">
+            <%= f.text_field :idade, class: "form-control" %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-sm-12">
+            <%= f.submit "Atualizar", class: 'btn btn-xs btn-success pull-right' do %>
+              <i class="icon icon-save"></i>Atualizar
+            <% end %>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+  <% end %>
+
+
+  <!--<div class="col-md-3 profile-nav">
+    <section class="panel">
+
+      <div id="user_profile" class="user-heading round">
+        <a href="#">
+          <%#= image_tag "http://graph.facebook.com/#{@user.uid}/picture?type=large" %>
+        </a>
+
+      </div>
+
+
+
+    </section>
+  </div>-->
+
+
+</aside>

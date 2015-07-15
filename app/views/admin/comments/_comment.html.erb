@@ -1,0 +1,19 @@
+<article class="media comment-<%= @comment.id %>" >
+  <a href="javascript:void(0)" class="pull-right remover_publicacao" data-id="<%= @comment.id %>">
+    <span class="icon-remove "></span>
+  </a>
+  <%= link_to (image_tag "http://graph.facebook.com/#{retornaThumb(@comment.user_id)}/picture?type=large"),admin_user_path(@comment.user_id),class: "pull-left thumb p-thumb"%>
+  <div class="media-body">
+    <p id="from_at"class="cmt-head">
+      <i class="icon-comment-alt"></i>
+      <strong>
+        <%= link_to admin_user_path(@comment.user_id) do %>
+            <%= retornaNome(@comment.user_id) %>
+        <% end %>
+        comentou em <%= @comment.created_at.strftime("%d/%m/%Y") %>
+      </strong>
+    </p>
+    <p id="comment_content"> <%= @comment.comment %></p>
+  </div>
+  <hr>
+</article>

@@ -1,0 +1,107 @@
+body {
+
+	header.panel-body {
+		border-bottom: 1px solid #f1f1f1;
+	}
+
+	/*collapse publication at show*/
+	div#accordion {
+        i#del_publication {
+          color: #FF6A56;
+          margin-right: 0px;
+        }
+		i#qtd_comment {
+			color: lightblue;
+		}
+		i#qtd_score {
+			color: orange;
+		}
+		a.accordion-toggle {
+			font-weight: 500;
+		}
+		div.panel-default {
+			margin-top: 0px;
+			border-bottom: 1px solid #f1f1f1;
+			a {
+				font-size: 12px;
+				i {
+					margin-right: 5px;
+				}
+				span {
+					margin-top: 4px;
+					font-weight: normal;
+					i {
+						margin-left: 10px;
+						margin-right: 5px;
+					}
+				}
+			}
+			div.panel-body{
+				border-top: 1px solid #f1f1f1;
+				hr {
+					margin-top: 10px;
+					margin-bottom: 10px;
+				}
+				p.publication_statistics {
+					margin: 0px;
+					font-size: 12px;
+					a {
+						i { 
+							margin-right: 5px;
+						}
+					}
+					i {
+						margin-left: 5px;
+					}
+				} 
+			}
+		}
+	}
+
+	/*collapse publication at show*/
+	div#user_profile{
+		//background-color: lightblue;
+		background-color: #ffffff;
+	}
+	
+	/*modal add publications*/
+	span#count_caracters {
+		color: #e8e8e8;
+	}
+
+    /*users charts*/
+
+    section.panel {
+
+      .morris-hover {
+        position: absolute;
+        z-index: 1000;
+      }
+
+      .morris-hover.morris-default-style {
+        border-radius: 10px;
+        padding: 6px;
+        color: #666;
+        background: rgba(255, 255, 255, 0.8);
+        border: solid 2px rgba(230, 230, 230, 0.8);
+        font-family: sans-serif;
+        font-size: 12px;
+        text-align: center;
+      }
+
+      .morris-hover.morris-default-style .morris-hover-row-label {
+        font-weight: bold;
+        margin: 0.25em 0;
+      }
+
+      .morris-hover.morris-default-style .morris-hover-point {
+        white-space: nowrap;
+        margin: 0.1em 0;
+      }
+
+
+      #hero-graph, #hero-bar, #hero-area, #hero-donut {height: 250px}
+
+    }
+
+}

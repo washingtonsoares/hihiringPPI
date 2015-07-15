@@ -1,0 +1,18 @@
+<<<<<<< HEAD
+					<article class="media">
+						<%= link_to (image_tag "http://graph.facebook.com/#{retornaThumb(comment.user_id)}/picture?type=large"),admin_user_path(comment.user_id),class: "pull-left thumb p-thumb"%>
+						<div class="media-body">
+							<p id="from_at"class="cmt-head">
+								<i class="icon-comment-alt"></i>
+								<strong>
+									<%= link_to admin_user_path(comment.user_id) do %>
+									<%= retornaNome(comment.user_id) %>
+									<% end %>
+									comentou em <%= comment.created_at.strftime("%d/%m/%Y") %>
+								</strong>
+							</p>
+							<p id="comment_content"> <%= comment.comment %></p>
+						</div>
+						<hr class="divisor_comment">
+					</article>
+=======

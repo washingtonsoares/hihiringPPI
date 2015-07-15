@@ -1,0 +1,476 @@
+<% content_for(:title, @user.name) %>
+<%= subscribe_to admin_user_path(@usuario) %>
+<!-- estou aqui :D-->
+<aside id="grp_info_1" class="profile-nav col-lg-3">
+  <%= render :partial => "profile.html.erb" %>
+</aside>
+
+<aside id="grp_info_2" class="profile-info col-lg-9">
+
+  <!-- informações do perfil -->
+  <section class="panel">
+    <header class="panel-heading">
+      <i class="icon icon-user"></i> Informações
+      <span id="actions_on_perfil">
+      <% if !(current_user.id == @user.id) %>
+
+          <% if (current_user.ocupation == 'Professor') && (@user.ocupation == 'Aluno') %>
+                <a id="abre_modal" href="#myModalIndication" data-toggle="modal" class="btn btn-xs btn-success pull-right">
+                  <i class="icon-bullhorn "></i> Indicar Perfil
+                </a>
+          <% end %>
+
+          <% if eh_amigo(current_user.id, @user.id)==3 %>
+                <a href="javascript:void(0)" class="btn btn-xs btn-warning pull-right">
+                  <i class='icon  icon-group'></i> Amigos
+                </a>
+            <% elsif eh_amigo(current_user.id, @user.id) %>
+                <a href="javascript:void(0)" class="btn btn-xs btn-warning pull-right">
+                  <i class='icon icon-time'></i> Convite enviado
+                </a>
+            <% else %>
+                <a id="abre_modal" href="#myModalAddContato" data-toggle="modal" class="btn btn-xs btn-warning pull-right modal-add-friend">
+                  <i class='icon icon-plus add-friend-icon'>Adicionar</i>
+                </a>
+            <% end %>
+
+      <% end %>
+      </span>
+    </header>
+    <div class="panel-body bio-graph-info">
+
+      <div class="row">
+        <div class="bio-row">
+          <p><span>Nome : </span> <%= @user.name %></p>
+        </div>
+        <div class="bio-row">
+          <p><span>Idade :</span> <%= @user.idade %></p>
+        </div>
+        <div class="bio-row">
+          <p><span>Ocupação :</span> <%= @user.ocupation %></p>
+        </div>
+        <div class="bio-row">
+          <p><span>Faculdade :</span> <%= @user.faculdade %></p>
+        </div>
+        <div class="bio-row">
+          <p><span>Email :</span> <%= @user.email %></p>
+        </div>
+        <div class="bio-row">
+          <p><span>Curso :</span> <%= @user.curso %></p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- gráficos do perl -->
+  <section class="panel">
+
+    <header class="panel-heading">
+      <ul id="dash_principal_menu" class="nav nav-tabs">
+        <li class="active">
+          <a data-toggle="tab" href="#graph-profile">
+            <i id="icon" class="icon-asterisk"></i>
+            Perfil
+          </a>
+        </li>
+        <li class="">
+          <a data-toggle="tab" href="#graph-publications">
+            <i id="icon" class="icon-asterisk"></i>
+            Publicações
+          </a>
+        </li>
+      </ul>
+    </header>
+
+    <div class="panel-body">
+      <div class="tab-content">
+
+        <div id="graph-profile" class="tab-pane active">
+          <div id="perfil-area" class="graph">
+            <div class="zero_padding col-lg-12">
+              <a id="abre_modal" href="" data-toggle="modal" class="btn btn-xs btn-success pull-left">
+                <i class="icon-plus mais"></i> Solicitar
+              </a>avaliação do perfil
+              <!--new earning start-->
+              <hr>
+              <div class="panel terques-chart">
+                <div class="panel-body chart-texture">
+                  <div class="chart">
+                    <div class="heading">
+                      <span>Friday</span>
+                      <strong>$ 57,00 | 15%</strong>
+                    </div>
+                    <div class="sparkline" data-type="line" data-resize="true" data-height="75" data-width="90%" data-line-width="1" data-line-color="#fff" data-spot-color="#fff" data-fill-color="" data-highlight-line-color="#fff" data-spot-radius="4" data-data="[200,135,667,333,526,996,564,123,890,564,455]">
+                      <canvas style="display: inline-block; width: 394px; height: 75px; vertical-align: top;" width="394" height="75"></canvas>
+                    </div>
+                  </div>
+                </div>
+                <div class="chart-tittle">
+                  <span class="title">New Earning</span>
+                              <span class="value">
+                                  <a href="#" class="active">Market</a>
+                                  |
+                                  <a href="#">Referal</a>
+                                  |
+                                  <a href="#">Online</a>
+                              </span>
+                </div>
+              </div>
+              <!--new earning end-->
+            </div>
+          </div>
+        </div>
+
+        <div id="graph-publications" class="tab-pane">
+          <div id="publications-area" class="graph">
+
+            <div class="zero_padding col-lg-12">
+              Publicações
+              <!--total earning start-->
+              <hr>
+              <div class="panel green-chart">
+                <div class="panel-body">
+                  <div class="chart">
+                    <div class="heading">
+                      <span>June</span>
+                      <strong>23 Days | 65%</strong>
+                    </div>
+                    <div id="barchart"></div>
+                  </div>
+                </div>
+                <div class="chart-tittle">
+                  <span class="title">Total Earning</span>
+                  <span class="value">$, 76,54,678</span>
+                </div>
+              </div>
+              <!--total earning end-->
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- atividades do perl -->
+  <section class="panel">
+    <header class="panel-heading">
+      <ul id="dash_principal_menu" class="nav nav-tabs">
+
+        <!--
+
+        <li class="">
+          <a data-toggle="tab" href="#publi-2">
+            <i id="icon" class="icon-bookmark"></i>
+            Ontem
+          </a>
+        </li>
+        <li class="">
+          <a data-toggle="tab" href="#conta-2">
+            <i id="icon" class="icon-group"></i>
+            Última Semana
+          </a>
+        </li>
+
+        -->
+
+        <li class="active">
+          <a data-toggle="tab" href="#timeline">
+            <i id="icon" class="icon-map-marker"></i>
+            Timeline
+          </a>
+        </li>
+
+        <li class="">
+          <a data-toggle="tab" href="#publi-2">
+            <i id="icon" class="icon-bookmark"></i>
+            Publicações
+          </a>
+        </li>
+
+        <li class="">
+          <a data-toggle="tab" href="#conta-2">
+            <i id="icon" class="icon-group"></i>
+            Marcações
+          </a>
+        </li>
+
+      </ul>
+    </header>
+    <div class="panel-body">
+      <div class="tab-content">
+
+        <div id="publi-2" class="tab-pane">
+
+          <% if current_user.id == @user.id %>
+            <a id="abre_modal" href="#myModal" data-toggle="modal" class="btn btn-xs btn-success pull-left">
+              <i class="icon-plus mais"></i>Adicionar
+            </a>
+            uma publicação
+
+          <% else %>
+            <a>
+              <i class=""></i>Publicações recentes
+            </a>
+
+          <% end %>
+
+          <hr>
+
+          <header class="panel-body">
+            <%= render "admin/users/publications/index" %>
+          </header>
+
+        </div>
+        <!-- publicações -->
+
+        <div id="conta-2" class="tab-pane ">
+
+          <% if current_user.id == @user.id %>
+
+            <div class="btn-group">
+              Meus contatos
+            </div>
+
+            <hr>
+
+          <% else %>
+
+            <div class="btn-group">
+              Todos contatos
+            </div>
+
+            <hr>
+
+          <% end %>
+
+          <header id="contato_list" class="panel-body col-sm-3">
+            <article class="media">
+              <a class="pull-left thumb p-thumb">
+                <!--<img src="img/product1.jpg">-->
+              </a>
+
+              <div class="media-body">
+                <a class=" p-head" href="#">Nome Contato</a>
+              </div>
+            </article>
+          </header>
+
+        </div>
+        <!-- contatos -->
+
+        <div id="timeline" class="tab-pane active">
+
+          <a id="abre_modal" type="button" class="btn btn-xs btn-white">
+            <i class="icon-home"></i>01 de janeiro
+          </a>
+
+          <hr>
+
+          <!--timeline start-->
+
+          <!--<div class="panel-body">-->
+
+          <div class="timeline">
+            <article class="timeline-item">
+              <div class="timeline-desk">
+                <div class="panel">
+                  <div class="panel-body">
+                    <span class="arrow"></span>
+                    <span class="timeline-icon red"></span>
+                    <span class="timeline-date">08:25 am</span>
+
+                    <h1 class="red">
+                      12 July |
+                            <span id="indication_date_from">
+                              <%= image_tag "http://graph.facebook.com/#{current_user.uid}/picture?type=large", :style => 'width: 25px; height: 25px' %>
+                              <%= current_user.name %>
+                            </span>
+                    </h1>
+
+                    <p>
+                      <a id="subTituloItemTimeline" href="#">indicou seu perfil </a><span> Lorem ipsum dolor sit amet consiquest dio</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="timeline-item alt">
+              <div class="timeline-desk">
+                <div class="panel">
+                  <div class="panel-body">
+                    <span class="arrow-alt"></span>
+                    <span class="timeline-icon green"></span>
+                    <span class="timeline-date">10:00 am</span>
+
+                    <h1 class="green">
+                      12 July |
+                            <span id="indication_date_from">
+                              <%= image_tag "http://graph.facebook.com/#{current_user.uid}/picture?type=large", :style => 'width: 25px; height: 25px' %>
+                              <%= current_user.name %>
+                            </span>
+                    </h1>
+
+                    <p>
+                      <a id="subTituloItemTimeline" href="#">indicou seu perfil </a><span> Lorem ipsum dolor sit amet consiquest dio</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="timeline-item">
+              <div class="timeline-desk">
+                <div class="panel">
+                  <div class="panel-body">
+                    <span class="arrow"></span>
+                    <span class="timeline-icon blue"></span>
+                    <span class="timeline-date">11:35 am</span>
+
+                    <h1 class="blue">
+                      12 July |
+                            <span id="indication_date_from">
+                              <%= image_tag "http://graph.facebook.com/#{current_user.uid}/picture?type=large", :style => 'width: 25px; height: 25px' %>
+                              <%= current_user.name %>
+                            </span>
+                    </h1>
+
+                    <p>
+                      <a id="subTituloItemTimeline" href="#">indicou seu perfil </a><span> Lorem ipsum dolor sit amet consiquest dio</span>
+                    </p>
+
+                    <!-- // álbum de avatar
+                        <div class="album">
+                          <a href="#">
+                            <%# image_tag "http://graph.facebook.com/#{current_user.uid}/picture?type=large", :style => 'width: 25px; height: 25px' %>
+                          </a>
+                          <a href="#">
+                            <%# image_tag "http://graph.facebook.com/#{current_user.uid}/picture?type=large", :style => 'width: 25px; height: 25px' %>
+                          </a>
+                          <a href="#">
+                            <%# image_tag "http://graph.facebook.com/#{current_user.uid}/picture?type=large", :style => 'width: 25px; height: 25px' %>
+                          </a>
+                          <a href="#">
+                            <%# image_tag "http://graph.facebook.com/#{current_user.uid}/picture?type=large", :style => 'width: 25px; height: 25px' %>
+                          </a>
+                          <a href="#">
+                            <%# image_tag "http://graph.facebook.com/#{current_user.uid}/picture?type=large", :style => 'width: 25px; height: 25px' %>
+                          </a>
+                        </div>
+                        -->
+
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="timeline-item alt">
+              <div class="timeline-desk">
+                <div class="panel">
+                  <div class="panel-body">
+                    <span class="arrow-alt"></span>
+                    <span class="timeline-icon purple"></span>
+                    <span class="timeline-date">3:20 pm</span>
+
+                    <h1 class="purple">
+                      12 July |
+                            <span id="indication_date_from">
+                              <%= image_tag "http://graph.facebook.com/#{current_user.uid}/picture?type=large", :style => 'width: 25px; height: 25px' %>
+                              <%= current_user.name %>
+                            </span>
+                    </h1>
+
+                    <p>
+                      <a id="subTituloItemTimeline" href="#">indicou seu perfil </a><span> Lorem ipsum dolor sit amet consiquest dio</span>
+                    </p>
+
+                    <div class="notification">
+                      <i class=" icon-exclamation-sign"></i> New task added for <a href="#">Denial Collins</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <article class="timeline-item">
+              <div class="timeline-desk">
+                <div class="panel">
+                  <div class="panel-body">
+                    <span class="arrow"></span>
+                    <span class="timeline-icon light-green"></span>
+                    <span class="timeline-date">07:49 pm</span>
+
+                    <h1 class="light-green">
+                      12 July |
+                            <span id="indication_date_from">
+                              <%= image_tag "http://graph.facebook.com/#{current_user.uid}/picture?type=large", :style => 'width: 25px; height: 25px' %>
+                              <%= current_user.name %>
+                            </span>
+                    </h1>
+
+                    <p>
+                      <a id="subTituloItemTimeline" href="#">indicou seu perfil </a><span> Lorem ipsum dolor sit amet consiquest dio</span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </article>
+            <div class="clearfix">&nbsp;</div>
+          </div>
+
+          <!--<div class="panel-body">-->
+
+        </div>
+      </div>
+    </div>
+  </section>
+</aside>
+
+<div class="modal fade" id="myModalIndication" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+        <h4 class="modal-title">Indique este perfil á uma empresa ou à alguém!</h4>
+      </div>
+      <div class="modal-body">
+        <form class="form-horizontal" role="form">
+          <div class="form-group">
+            <div class="col-lg-10">
+              <input type="email" class="form-control" id="email_indicate" placeholder="Email">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-10">
+              <button type="submit" class="btn btn-success btn-xs pull-right" id="start_indication">Indicar!</button>
+              <%= image_tag "admin/gif-load.gif", :width => "30px", :height => "30px", class: "pull-right hide spinning-email" %>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="myModalAddContato" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <form class="form-horizontal" role="form">
+          <div id="adicionando_contato" class="panel-body">
+            <a href="#" class="task-thumb">
+              <%= image_tag "http://graph.facebook.com/#{@user.uid}/picture?type=large", :style => 'max-width: 90px; max-height: 90px;' %>
+            </a>
+
+            <div class="task-thumb-details">
+              <h5>Gostaria de adicionar como contato
+                ?<span id="add_friend" class="btn btn-xs btn-warning pull-right">Sim</span></h5>
+              <h4><a href="#"><%= @user.name %></a></h4>
+
+              <p><%= @user.ocupation %> na <%= @user.faculdade %>, <%= @user.curso %></p>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,169 @@
+<div class="col-md-12">
+
+  <section class="panel">
+    <div class="panel-body">
+
+      <div class="panel-body">
+          <%= form_for :publication,remote: true, url: admin_user_publication_path(current_user,@publication) , html: { class: "form-horizontal" ,role: "form"}, method: :patch do |f| %>
+          <div class="form-group">
+            <%= f.label :titulo,class: "col-lg-2 col-sm-2 control-label" %>
+            <div class="col-lg-10">
+              <%= f.text_field :title, class: "form-control" , placeholder: "Titulo" %>
+            </div>
+          </div>
+          <div class="form-group">
+            <%= f.label :resumo,class: "col-lg-2 col-sm-2 control-label" %>
+            <div class="col-lg-10">
+              <%= f.text_area :resume, rows: "10" , class: "form-control" , placeholder: "Resumo"%>
+            </div>
+          </div>
+            <div class="form-group">
+              <label class="control-label col-md-2">Envie um documento</label>
+              <div class="controls col-md-10">
+                <div class="fileupload fileupload-new" data-provides="fileupload">
+                                                <span class="btn btn-white btn-file">
+                                                <span class="fileupload-new"><i class="icon-paper-clip"></i> Select file</span>
+                                                <span class="fileupload-exists"><i class="icon-undo"></i> Change</span>
+                                                <input type="file" class="default" />
+                                                <%= f.file_field :archive,class: "default",id: "archive"%>
+                                                </span>
+                  <span class="fileupload-preview" id="file-info" style="margin-left:5px;"> <strong><%= @publication.archive.file.filename  if !(@publication.archive.blank?) %></strong> </span>
+                  <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none; margin-left:5px;"></a>
+                </div>
+              </div>
+            </div>
+            <div class="form-group">
+              <%= f.label :video,class: "col-lg-2 col-sm-2 control-label" %>
+              <div class="col-lg-10">
+                <%= f.text_field :video, class: "form-control" , placeholder: "Video"%>
+              </div>
+            </div>
+
+            <div class="form-group last">
+              <label class="control-label col-lg-2">Image Upload</label>
+              <div class="col-lg-10">
+                <div class="fileupload fileupload-new" data-provides="fileupload">
+                  <div class="fileupload-new thumbnail" id="image_preview" style="width: 200px; height: 150px;">
+
+                    <% if @publication.thumb.blank? %>
+                     <%= image_tag "admin/no-image.gif" %>
+                   <% else %>
+                     <%= image_tag @publication.thumb_url(:thumb_publication_edit) %>
+                   <% end %>
+
+                  </div>
+                  <div>
+                       <span class="btn btn-white btn-file">
+                       <span class="fileupload-new" id="select_image"><i class="icon-paper-clip"></i> Select image</span>
+                       <span class="fileupload-exists"><i class="icon-undo"></i> Change</span>
+                         <%= f.file_field :thumb,class: "default",id: "files" %>
+                       </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          <div class="form-group">
+            <div class="col-lg-offset-2 col-lg-10">
+              <%= f.submit "Atualizar",class: "btn btn-danger" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="panel">
+    <header class="panel-heading tab-bg-dark-navy-blue">
+      <ul class="nav nav-tabs ">
+        <li class="active">
+          <a data-toggle="tab" href="#reviews">
+            <i class="icon-comments-alt"></i>Comentários
+          </a>
+        </li>
+        <li>
+          <a data-toggle="tab" href="#description">
+            Avaliações
+          </a>
+        </li>
+
+      </ul>
+    </header>
+    <div class="panel-body">
+      <div class="tab-content tasi-tab">
+
+        <!-- comentários recebidos -->
+        <div id="reviews" class="tab-pane active">
+
+          <!-- form para criar comentário -->
+          <%= form_for ([@publication, @publication.admin_comments.build]),:url => admin_user_publication_comments_path(current_user,@publication),remote: true,:html => {:class=>"m-b-none group-post "}  do |f| %>
+              <%= f.hidden_field :user_id , :value => current_user.id %>
+              <div class="input-group  ">
+                <%= f.text_field :comment ,:class=>"form-control ",:required => "required" ,:placeholder=>"Deixe seu comentário"%>
+                <span class="input-group-btn">
+							<%= f.submit "Criar",:class=>"btn btn-primary"%>
+						</span>
+              </div>
+          <%end%>
+
+
+
+          <!-- comentários -->
+          <% @publication.admin_comments.order("id DESC").each do |comment| %>
+              <article class="media comment-<%= comment.id %>" >
+                <% if current_user.id == comment.user_id || current_user.id == @publication.user_id%>
+                    <a href="javascript:void(0)" class="pull-right remover_publicacao" data-id="<%= comment.id %>">
+                      <span class="icon-remove "></span>
+                    </a>
+                <%end%>
+                <%= link_to (image_tag "http://graph.facebook.com/#{retornaThumb(comment.user_id)}/picture?type=large"),admin_user_path(retornaNomeFormatado(comment.user_id)),class: "pull-left thumb p-thumb"%>
+                <div class="media-body">
+                  <p id="from_at"class="cmt-head">
+                    <i class="icon-comment-alt"></i>
+                    <strong>
+                      <%= link_to admin_user_path(retornaNomeFormatado(comment.user_id)) do %>
+                          <%= retornaNome(comment.user_id) %>
+                      <% end %>
+                      comentou em <%= comment.created_at.strftime("%d/%m/%Y") %>
+                    </strong>
+                  </p>
+                  <p id="comment_content"> <%= comment.comment %></p>
+                </div>
+                <hr>
+              </article>
+          <%end%>
+
+        </div>
+
+        <!-- quem avaliou -->
+        <div id="description" class="tab-pane">
+          <h4 class="pro-d-head">Product Description</h4>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<input type="hidden" id="current_user" value="<%= current_user.id %>"/>
+<input type="hidden" id="current_publicacao" value="<%= @publication.id %>"/>
+
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Deletar comentário</h4>
+      </div>
+      <div class="modal-body">
+        Tem certeza que deseja deletar este comentário?
+      </div>
+      <div class="modal-footer">
+        <button data-dismiss="modal" class="btn btn-default" type="button" >Close</button>
+        <button class="btn btn-warning" type="button" id="confirma"> Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>

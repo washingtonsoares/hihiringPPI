@@ -1,0 +1,75 @@
+<script type="text/javascript" charset="utf-8">
+  jQuery(function ($) {
+    $("#myModalWelcome").modal("show");
+    $('#default').stepy({
+      backLabel: "<i class=\'icon  icon-chevron-left\'></i>",
+      block: true,
+      nextLabel: 'Próximo',
+      titleClick: true,
+      titleTarget: '.stepy-tab'
+    });
+  });
+</script>
+
+<% render 'faculdade_select' %>
+
+<div class="modal fade" id="myModalWelcome" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Bem vindo ao hihiring</h4>
+      </div>
+
+      <div class="modal-body">
+        <%= form_for :user, url: admin_user_path(@user), html: {class: "form-horizontal", id: "default"}, method: :patch do |f| %>
+
+          <fieldset title="About u !" class="step" id="default-step-0">
+            <legend><%= @user.name %>, conte-nos um pouco sobre você ...</legend>
+            <section class="panel">
+                <div id="NewProfileUser" class="col-sm-2">
+                  <%= image_tag "http://graph.facebook.com/#{@user.uid}/picture?type=large", :style => 'max-width: 80px; max-height: 80px;' %>
+                </div>
+
+                <div id="SetProfileInfo" class="col-sm-10">
+                      <div class="form-group col-sm-10 " id="ocupations">
+                        <select id="user_ocupation" name="user[ocupation]" class="form-control">
+                          <option selected="selected"> -- Selecione Ocupação -- </option>
+                          <option value="Professor">Professor</option>
+                          <option value="Aluno">Aluno</option>
+                        </select>
+                      </div>
+
+                    <div class="form-group col-md-12 " id="ocupations" style="padding:0">
+                      <select multiple class="col-md-10 user_faculdade hide" id="select_inst">
+                        <% Admin::Institution.all.each do |institution| %>
+                            <option value="<%= institution.id%>"><%= institution.acronym %></option>
+                        <%end%>
+                      </select>
+                    </div>
+                </div>
+
+            </section>
+          </fieldset>
+
+          <fieldset title="Hi !!" class="step" id="default-step-2">
+            <legend>Pronto ! </legend>
+            <section class="panel">
+                <div class="form-group">
+                  <div class="col-sm-12">
+                    <p class="text-right">
+                      " O amor recíproco entre quem aprende e quem ensina é o primeiro e mais importante degrau para se chegar ao conhecimento. "</p>
+                  </div>
+                </div>
+            </section>
+          </fieldset>
+
+          <%= f.submit "Finalizar", class: "finish btn btn-info pull-right" %>
+
+        <% end %>
+      </div>
+
+    </div>
+  </div>
+</div>

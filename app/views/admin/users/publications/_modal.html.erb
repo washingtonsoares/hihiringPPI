@@ -1,0 +1,48 @@
+<%= form_for :admin_publication, remote: true ,html: { id: "cria_publicacao",class: "cmxform form-horizontal tasi-form"}, url: admin_user_publications_path(current_user) do |f| %>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Adicionar uma publicação</h4>
+			</div>
+			<div class="modal-body">
+
+				<!-- error message when publication fail
+				<%# if @user.admin_publication.errors.any? %>
+				<div id="error_explanation">
+				<h2><%# pluralize(@admin_publication.errors.count, "error") %> prohibited this admin_publication from being saved:</h2>
+				<ul>
+				<%# @admin_publication.errors.full_messages.each do |message| %>
+				<li><%# message %></li>
+				<%# end %>
+				</ul>
+				</div>
+				<%# end %>
+				-->
+
+				<div class="panel-body">
+					<div class="form-group">
+						<%= label_tag "Informe o título para a sua publicação:"%>
+						<%= f.text_field :title ,class: "form-control col-sm-12", placeholder: "Digite o titulo" , required: "required"%>
+					</div>
+
+					<div class="form-group">
+						<%= label_tag "Uma breve descrição sobre o que se trata:"%><span id="count_caracters" class="pull-right">Mínimo, 220 caracteres - 000</span>
+						<%= f.text_area :resume ,class: "form-control col-sm-12", placeholder: "Digite um resumo", required: "required", :style => 'resize: none; height: 200px'%>
+					</div>
+					
+				</div>
+
+			</div>
+			<div class="modal-footer">
+				<%= f.hidden_field :user_id ,value: current_user.id %>
+				<button data-dismiss="modal" class="btn btn-default" type="button">Cancelar</button>
+				<%= f.submit "Criar Postagem", :class => "btn btn-success" %>
+			</div>
+		</div>
+	</div>
+</div>
+
+<% end %>

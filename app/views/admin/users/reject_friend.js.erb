@@ -1,0 +1,7 @@
+$(".reject-friend").each(function(){
+    if($(this).attr("data-id") == <%= @it_friends.user1.id %>){
+        $(this).siblings(".accept-friend").hide();
+        $(this).text("Ignorado");
+        $(this).prepend("<i class='icon-check'></i>");
+    }
+});

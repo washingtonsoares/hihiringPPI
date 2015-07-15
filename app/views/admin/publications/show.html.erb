@@ -1,0 +1,304 @@
+<div class="col-md-12">
+
+  <section id="grp_info_3"  class="panel">
+
+    <header id="titulo" class="panel-heading">
+
+      <%= @publication.title %>
+      <!-- facebook buttons -->
+
+        <span class="pull-right">
+					<%# social_share_button_tag(@publication.title, :url => "http://0.0.0.0:3000/admin/users/3/publications/42", :popup => true) %>
+          <span class="fb-like pull-right" data-href="{URL}" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></span>
+        </span>
+
+      <%= social_share_button_tag("My Site") %>
+
+      <!-- like button -->
+    </header>
+
+    <input type="hidden" id="publication_c" value="<%= @publication.id %>"/>
+
+    <div class="panel-body">
+
+      <div id="" class="">
+        <% if @publication.thumb.blank? %>
+          <%= image_tag "admin/no-image-publication.png" %>
+        <% else %>
+          <%= image_tag @publication.thumb_url(:thumb_publication), :style => 'width: 100%' %>
+        <% end %>
+      </div>
+
+      <p>
+        <%= link_to admin_user_path(retornaNomeFormatado(@publication.user_id)), :id => 'publication_owner', :class => 'btn btn-xs btn-success' do %>
+          <i class="icon-user"></i> <%= retornaNome(@publication.user_id) %>
+        <% end %>
+        <hr class="divisor">
+        <%= @publication.resume %>
+        </p>
+
+        <hr>
+
+        <ul id="publication_type_files" class="summary-list">
+          <li>
+            <a href="javascript:;">
+              <i class=" icon-file-text text-primary"></i>
+              <% if @publication.archive %>
+                <p><%= link_to "01 documento",admin_download_file_path(@publication),data: { no_turbolink: true } %></p>
+              <%else%>
+               Nenhum documento
+              <%end%>
+            </a>
+          </li>
+          <li>
+            <a href="#myModalVideo" data-toggle="modal">
+              <i class="icon-facetime-video text-primary"></i>
+              <% if @publication.video %>
+                01 vídeo
+              <%else%>
+                  Nenhum video
+              <%end%>
+            </a>
+          </li>
+          <li>
+            <a href="javascript:;">
+              <i class="icon-microphone text-primary"></i>
+
+              Nenhum áudio
+
+            </a>
+          </li>
+          <% unless current_user.id == @publication.user_id %>
+          <li>
+            <div id="avaliador" class="">
+              <div class="task-thum">
+                <%= link_to (image_tag "http://graph.facebook.com/#{retornaThumb(@publication.user_id)}/picture?type=large"), admin_user_path(@publication.user_id), class: 'thumb p-thumb', :style => 'height: 50px;' %>
+              </div>
+              <div class="task-thumb-details">
+                <h1><a href="#"><%= retornaNome(@publication.user_id) %></a></h1>
+
+                <p>
+                  <span class="rating">
+                    <span class="star estrela" data-peso="5"></span>
+                    <span class="star estrela" data-peso="4"></span>
+                    <span class="star estrela" data-peso="3"></span>
+                    <span class="star estrela" data-peso="2"></span>
+                    <span class="star estrela" data-peso="1"></span>
+                  </span>
+                </p>
+              </div>
+
+            </div>
+          </li>
+          <% end %>
+        </ul>
+
+        </div>
+
+  </section>
+
+  <section class="panel">
+
+    <header class="panel-heading tab-bg-dark-navy-blue">
+      <ul id="comments_avaliacao" class="nav nav-tabs ">
+        <li class="active">
+          <a data-toggle="tab" href="#reviews">
+            <i class="icon-comments-alt"></i>Comentários
+          </a>
+        </li>
+        <li>
+          <a data-toggle="tab" href="#description" id="tab-avaliacoes">
+            <i class="icon-adn"></i>Avaliações
+          </a>
+        </li>
+      </ul>
+    </header>
+
+    <div class="panel-body">
+      <div class="tab-content tasi-tab">
+
+        <!-- comentários recebidos -->
+        <div id="reviews" class="tab-pane active">
+
+          <!-- form para criar comentário -->
+          <%= form_for ([@publication, @publication.admin_comments.build]), :url => admin_user_publication_comments_path(current_user, @publication), remote: true, :html => {:class => "m-b-none group-post "} do |f| %>
+            <%= f.hidden_field :user_id, :value => current_user.id %>
+            <div class="input-group  ">
+              <%= f.text_field :comment, :class => "form-control ", :required => "required", :placeholder => "Deixe seu comentário" %>
+              <span class="input-group-btn">
+							<%= f.submit "Criar", :class => "btn btn-primary" %>
+						</span>
+            </div>
+
+            <hr class="divisor">
+
+          <% end %>
+
+          <!-- comentários -->
+
+          <% @publication.admin_comments.order("id DESC").each do |comment| %>
+
+            <article class="media comment-<%= comment.id %>">
+
+              <% if current_user.id == comment.user_id || current_user.id == @publication.user_id %>
+                <a href="javascript:void(0)" class="pull-right remover_publicacao" data-id="<%= comment.id %>">
+                  <span class="icon-remove "></span>
+                </a>
+              <% end %>
+
+              <%= link_to (image_tag "http://graph.facebook.com/#{retornaThumb(comment.user_id)}/picture?type=large"), admin_user_path(comment.user_id), class: "pull-left thumb p-thumb" %>
+              <div class="media-body">
+                <p id="from_at" class="cmt-head">
+                  <i class="icon-comment-alt"></i>
+                  <strong>
+                    <%= link_to admin_user_path(comment.user_id) do %>
+                      <%= retornaNome(comment.user_id) %>
+                    <% end %>
+                    comentou em <%= comment.created_at.strftime("%d/%m/%Y") %>
+                  </strong>
+                </p>
+
+                <p id="comment_content"> <%= comment.comment %></p>
+              </div>
+              <hr>
+            </article>
+          <% end %>
+
+          <!--
+					<article class="media comment-<%# comment.id %>" >
+					<%# if current_user.id == comment.user_id || current_user.id == @publication.user_id%>
+					<a href="javascript:void(0)" class="pull-right remover_publicacao" data-id="<%# comment.id %>">
+					<span class="icon-remove "></span>
+					</a>
+					<%#end%>
+					<%# link_to (image_tag "http://gra link_to (image_tag "http://graph.facebook.com/#{retornaThumb(@publication.user_id)}/picture?type=large"), admin_user_path(@publication.user_id), class: 'thumb p-thumb', :style => 'height: 50px;' %>
+                </div>
+                <div class="task-thumb-details">
+                  <h1><a href="#"><%= retornaNome(@publication.user_id) %></a></h1>
+
+                  <p>
+                    <span class="rating">
+                      <span class="star estrela" data-peso="5"></span>
+                      <span class="star estrela" data-peso="4"></span>
+                      <span class="star estrela" data-peso="3"></span>
+                      <span class="star estrela" data-peso="2"></span>
+                      <span claph.facebook.com/#{retornaThumb(comment.user_id)}/picture?type=large"),admin_user_path(retornaNomeFormatado(comment.user_id)),class: "pull-left thumb p-thumb"%>
+					<div class="media-body">
+					<p id="from_at"class="cmt-head">
+					<i class="icon-comment-alt"></i>
+					<strong>
+					<%# link_to admin_user_path(retornaNomeFormatado(comment.user_id)) do %>
+					<%# retornaNome(comment.user_id) %>
+					<%# end %>
+					comentou em <%# comment.created_at.strftime("%d/%m/%Y") %>
+					</strong>
+					</p>
+					<p id="comment_content"> <%# comment.comment %></p>
+					</div>
+					<hr>
+					</article>
+					<%#end%>
+					-->
+
+        </div>
+
+        <!-- quem avaliou -->
+        <div id="description" class="tab-pane">
+          <ul class="summary-list">
+            <% @rate.each do | rating | %>
+
+            <li>
+              <div id="avaliador" class="">
+                <div class="task-thum">
+                  <%= link_to (image_tag "http://graph.facebook.com/#{retornaThumb(rating.users_id)}/picture?type=large"), admin_user_path(rating.users_id), class: 'thumb p-thumb', :style => 'height: 50px;' %>
+                </div>
+                <div class="task-thumb-details">
+                  <h1><a href="#"><%= retornaNome(rating.users_id) %></a></h1>
+
+                  <p>
+                    <span class="rating">
+                      <% i=1
+                      while(i<=rating.nota) do %>
+                        <span class="star" style="color:#39b5aa"></span>
+                      <% i = i+1
+                      end %>
+                    </span>
+                  </p>
+                </div>
+
+              </div>
+            </li>
+
+            <% end %>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+
+  </section>
+
+</div>
+
+<input type="hidden" id="current_user" value="<%= current_user.id %>"/>
+<input type="hidden" id="current_publicacao" value="<%= @publication.id %>"/>
+
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Deletar comentário</h4>
+      </div>
+      <div class="modal-body">
+        Tem certeza que deseja deletar este comentário?
+      </div>
+      <div class="modal-footer">
+        <button data-dismiss="modal" class="btn btn-default" type="button">Close</button>
+        <button class="btn btn-warning" type="button" id="confirma"> Confirm</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="myModalVideo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">Video</h4>
+      </div>
+      <div class="modal-body">
+        <iframe width="570" height="400" src="//www.youtube.com/embed/<%= video_id(@publication.video) if !(@publication.video.blank?) %>" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <div class="modal-footer">
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--
+=======
+<input type="hidden" id="current_user" value="<%= current_user.id %>"/>
+<input type="hidden" id="current_publicacao" value="<%= @publication.id %>"/>
+
+<div class="modal fade  " id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h4 class="modal-title">Deletar comentário</h4>
+			</div>
+			<div class="modal-body">
+				Tem certeza que deseja deletar este comentário?
+			</div>
+			<div class="modal-footer">
+				<button data-dismiss="modal" class="btn btn-default" type="button" >Close</button>
+				<button class="btn btn-warning" type="button" id="confirma"> Confirm</button>
+			</div>
+		</div>
+	</div>
+</div>
+>>>>>>> 833e6d526c538432ea0dcafa999628fabd2f0536
+-->

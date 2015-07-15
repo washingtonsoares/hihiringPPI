@@ -1,0 +1,126 @@
+<aside id="admin_publications_posts" class="col-lg-9">
+  <section id="list_all_publications" class="panel">
+    <header id="titulo" class="panel-heading">
+      Publicações
+    </header>
+    <div class="panel-body">
+
+      <article class="media">
+        <div id="publication_list_item" class="media-body blog-item">
+          <ul id="list_publications" class="col-lg-12 col-sm-12">
+            <% @admin_publications.order("created_at DESC").each do |admin_publication| %>
+              <li class="col-lg-6 publication_item">
+                <div id="publication_list_thumb">
+                  <!--widget start-->
+                  <section class="panel">
+
+                    <div id="publication_list_thumb_layout" class="twt-feed" style="background-image: url('<%= admin_publication.thumb_url(:thumb_publication)%>')">
+                      <h1 id="titulo_publication_list"><%= retornaNome(admin_publication.user_id) %></h1>
+                      <p id="email_publication_owner_list" class="">jsmith@flatlab.com<br>
+
+                      </p>
+                      <p id="owner_publication">
+                        <%= link_to (image_tag "http://graph.facebook.com/#{retornaThumb(admin_publication.user_id)}/picture?type=large", :class => 'owner_publication'), admin_user_path(admin_publication.user_id), class: 'thumb p-thumb' %>
+                      </p>
+
+                    </div>
+
+                    <div id="publication_list_descript" class="weather-category twt-category">
+                      <h4 class="titulo_publication_list">
+                        <%= link_to admin_user_publication_path(admin_publication.user_id, admin_publication.id) do %>
+                          <i class="icon icon-user"></i> <%= truncate(admin_publication.title, length: 45) %>
+                        <% end %>
+                      </h4>
+                      <p class="descrip_public">
+                        <%= truncate(admin_publication.resume, length: 90) { link_to ' visualizar', admin_user_publication_path(retornaNomeFormatado(admin_publication.user_id), admin_publication) } %>
+                      </p>
+                    </div>
+
+
+                  </section>
+                  <!--widget end-->
+                </div>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <footer>
+    <%= will_paginate @admin_publications %>
+  </footer>
+</aside>
+
+<aside id="admin_publications_posts_advertsing" class="col-lg-3">
+  <section id="list_publication_advertising" class="panel" style="background-color: white">
+
+    <header id="titulo" class="panel-heading">
+      Filtrar conteúdo
+    </header>
+
+    <div class="panel-body">
+      <article class="media">
+
+        <div class="media-body">
+
+          <hr class="divisor">
+
+        </div>
+
+
+      </article>
+    </div>
+
+    <div class="text-center">
+      <%# will_paginate @admin_publications %>
+    </div>
+
+  </section>
+  <section id="list_publication_advertising" class="panel">
+    <header id="titulo" class="panel-heading">
+      Publicidade
+    </header>
+
+    <div id="back_banner" class="panel-body">
+      <article class="media">
+
+        <div class="media-body">
+
+          <p>
+            <a id="banner" class="" href="">
+              <%= image_tag 'admin/banner.png' %>
+            </a>
+          </p>
+          <hr class="divisor_banner">
+          <p>
+            <a id="banner" class="" href="">
+              <%= image_tag 'admin/banner.png' %>
+            </a>
+          </p>
+          <hr class="divisor_banner">
+          <p>
+            <a id="banner" class="" href="">
+              <%= image_tag 'admin/banner.png' %>
+            </a>
+          </p>
+          <hr class="divisor_banner">
+          <p>
+            <a id="banner" class="" href="">
+              <%= image_tag 'admin/banner.png' %>
+            </a>
+          </p>
+
+        </div>
+
+      </article>
+    </div>
+
+    <div class="text-center">
+      <%# will_paginate @admin_publications %>
+    </div>
+
+  </section>
+</aside>

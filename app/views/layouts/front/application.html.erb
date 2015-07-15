@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>hihiring</title>
+  <%= stylesheet_link_tag 'front/application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'front/application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body class="full-width" data-controller="<%= controller.controller_path %>"
+      data-action="<%= controller.action_name %>"
+      data-route="<%= route_name %>">
+
+  <%= render 'layouts/front/header' %>
+  <%= render 'layouts/front/principal' %>
+  <%= render 'layouts/front/footer' %>
+
+  <section id="container"> <!-- corpo da página -->
+    <%= yield %>
+  </section>
+
+  <script>
+
+    RevSlide.initRevolutionSlider();
+
+    $(window).load(function () {
+      $('[data-zlname = reverse-effect]').mateHover({
+        position: 'y-reverse',
+        overlayStyle: 'rolling',
+        overlayBg: '#fff',
+        overlayOpacity: 0.7,
+        overlayEasing: 'easeOutCirc',
+        rollingPosition: 'top',
+        popupEasing: 'easeOutBack',
+        popup2Easing: 'easeOutBack'
+      });
+    });
+
+    $(window).load(function () {
+      $('.flexslider').flexslider({
+        animation: "slide",
+        start: function (slider) {
+          $('body').removeClass('loading');
+        }
+      });
+    });
+
+    //  fancybox
+    jQuery(".fancybox").fancybox();
+
+
+  </script>
+
+</body>
+</html>

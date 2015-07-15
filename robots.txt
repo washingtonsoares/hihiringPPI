@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /blog/privacy-policy/
+Disallow: /blog/terms-and-conditions-of-use/
+Disallow: /account/
+Disallow: /presentoons/
+Disallow: /p/
+

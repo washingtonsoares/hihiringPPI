@@ -1,0 +1,42 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any styles
+ * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
+ * file per style scope.
+ *
+ *= require social-share-button
+ *= require_self
+ *= require admin/bootstrap
+ *= require admin/bootstrap-reset
+ *= require admin/bootstrap-social
+ *= require admin/gallery
+ *= require admin/image-crop
+ *= require admin/navbar-fixed-top
+ *= require admin/owl.carousel
+ *= require admin/table-responsive
+ *= require admin/tasks
+ *= require admin/font-awesome/css/font-awesome
+ *= require admin/jquery.easy-pie-chart
+ *= require admin/adds/bootstrap-fileupload/bootstrap-fileupload
+ *= require admin/adds/bootstrap-wysihtml5/bootstrap-wysihtml5
+ *= require admin/adds/bootstrap-datepicker/css/datepicker
+ *= require admin/adds/bootstrap-timepicker/compiled/timepicker
+ *= require admin/adds/bootstrap-colorpicker/css/colorpicker
+ *= require admin/adds/bootstrap-datetimepicker/css/datetimepicker
+ *= require admin/adds/jquery-multi-select/css/multi-select
+ *= require admin/adds/advanced-datatable/media/css/demo_page
+ *= require admin/adds/advanced-datatable/media/css/demo_table
+ *= require admin/style
+ *= require admin/style-responsive
+ *= require admin/global
+ *= require gritter
+ *= require nprogress
+ *= require nprogress-bootstrap
+ *= require select2
+ */

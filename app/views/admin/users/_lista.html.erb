@@ -1,0 +1,21 @@
+<li class="lista_notifications_users">
+  <a href="javascript:;">
+       <span class="photo">
+        <%= image_tag "http://graph.facebook.com/#{@enviador.uid}/picture?type=large", :style => 'width: 24px; height: 24px;' %>
+       </span>
+       <span class="subject pull-left">
+           <span class="from">
+             <%= truncate(@enviador.name, length: 12) %>
+           </span>
+       </span>
+    <div class="btn-group  btn-group-xs pull-right">
+      <button class="btn  btn-success accept-friend" type="button"  data-id="<%= @enviador.id %>">Aceitar</button>
+      <button class="btn  btn-white reject-friend " type="button" data-id="<%= @enviador.id %>"> Ignorar</button>
+    </div>
+       <span class="message pull-left">
+           Marcou você como
+         <%= eh_colega(@enviador,@usuario)  %>
+         dele
+       </span>
+  </a>
+</li>

@@ -1,0 +1,47 @@
+<section class="panel">
+
+  <!-- ############################ NÃO REMOVER A LINHA ABAIXO  ###################### -->
+    <input type="hidden" id="usuario_a" value="<%= @user.id %>"/>
+  <!-- ############################ NÃO REMOVER A LINHA ACIMA  ###################### -->
+  <div id="user_profile" class="user-heading round">
+    <a href="#">
+      <%= image_tag "http://graph.facebook.com/#{@user.uid}/picture?type=large" %>
+    </a>
+    <h1><%= @user.name %></h1>
+  </div>
+
+  <ul class="nav nav-pills nav-stacked">
+
+    <%if current_user.id == @user.id %>
+      <li>
+        <%= link_to admin_user_path(current_user) do %>
+          <i class ="icon-user"></i> Perfil
+        <% end %>
+      </li>
+      <li>
+        <%= link_to edit_admin_user_path(retornaNomeFormatado(current_user.id)) do%>
+          <i class="icon-edit"></i> Editar Perfil
+        <% end %>
+      </li>
+    <%end%>
+
+    <li>
+      <a href="#">
+        <i class="icon-calendar"></i> Atividades
+        <span class="label label-danger pull-right r-activity">9</span>
+      </a>
+    </li>
+    <li>
+      <%= link_to admin_user_my_publications_path(current_user.id) do %>
+        <i class="icon icon-bookmark"></i> Publicações
+      <% end %>
+    </li>
+    <li>
+      <a href="#">
+        <i class="icon icon-group"></i> Contatos
+      </a>
+    </li>
+
+  </ul>
+
+</section>

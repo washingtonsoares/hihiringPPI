@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title><%= full_title(yield :title)%></title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="Mosaddek">
+  <meta name="keyword" content="Safira cms">
+
+  <%= stylesheet_link_tag 'admin/application', media: 'all', 'data-turbolinks-track' => true %>
+	<%= javascript_include_tag 'admin/application', 'data-turbolinks-track' => true %>  
+	<%= csrf_meta_tags %>
+
+	<%= stylesheet_link_tag params[:controller] %>
+  
+</head>
+
+<body class="full-width" data-controller="<%= controller.controller_path %>"
+      data-action="<%= controller.action_name %>"
+      data-route="<%= route_name %>">
+
+    <% if ['new_user_session','user_session', 'new_user_password', 'edit_user_password', 'new_user_registration', 'accept_user_invitation', 'user_password'].include? route_name %>
+        <%= yield %>
+    <% else %>
+
+    <input type="hidden" id="usuario_c" value="<%= current_user.id %>"/>
+
+    <section id="container"> <!-- corpo da página -->
+      <!-- header -->
+      <%= render 'layouts/admin/header' %>
+      <!-- header fim -->
+      <section id="main-content" style="max-width: 1000px; margin: 0 auto;">
+        <section id="section_all" class="wrapper">
+          <!-- breadcrumb -->
+          <%= render 'layouts/admin/breadcrumb' %>
+          <div class="row">
+            <!-- content -->
+            <%= yield %>
+          </div>
+        </section>
+      </section>
+    </section>
+
+<% end %>
+
+</body>
+</html>

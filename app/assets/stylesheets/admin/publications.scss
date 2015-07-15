@@ -1,0 +1,36 @@
+body {
+	div.media-body {
+		i {
+			margin-right: 10px;
+		}
+		i#qtd_comment {
+			color: lightblue;
+			/*margin-left: 10px;*/
+			margin-right: 5px;
+		}
+		i#qtd_score {
+			color: orange;
+			margin-left: 10px;
+			margin-right: 5px;
+		}
+		p.descrip_public {
+			margin-top: 10px;
+			margin-bottom: 0px;
+			line-height: 1.6;
+		}
+		p.publication_statistics {
+			margin-top: 8px;
+			margin-bottom: 5px;
+		}
+		p#from_at {
+			margin-bottom: 0px;
+		}
+		p#comment_content {
+			margin-top: 2px;
+			margin-bottom: 0px;
+		}
+	}
+	hr.divisor {
+		margin-top: 15px;
+	}
+}

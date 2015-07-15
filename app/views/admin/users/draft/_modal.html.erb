@@ -1,0 +1,53 @@
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="myModal" class="modal fade">
+
+	<div class="modal-dialog">
+
+		<div class="modal-content">
+
+			<div class="modal-header">
+				<button aria-hidden="true" data-dismiss="modal" class="close" type="button">×</button>
+				<h4 class="modal-title">Criar uma nova publicação</h4>
+			</div>
+
+				<div class="modal-body">
+
+					<%= form_for :admin_publication, remote: true ,html: { id: "cria_publicacao",class: "cmxform form-horizontal tasi-form"}, url: admin_user_publications_path(current_user) do |f| %>
+
+					<!-- error message when publication fail
+					<%# if @user.admin_publication.errors.any? %>
+					<div id="error_explanation">
+					<h2><%# pluralize(@admin_publication.errors.count, "error") %> prohibited this admin_publication from being saved:</h2>
+					<ul>
+					<%# @admin_publication.errors.full_messages.each do |message| %>
+					<li><%# message %></li>
+					<%# end %>
+					</ul>
+					</div>
+					<%# end %>
+					-->
+
+
+					<div class="form-group">
+						<%= label_tag "Informe o título para a sua publicação:"%>
+						<%= f.text_field :title ,class: "form-control col-sm-12",placeholder: "Digite o titulo" ,required: "required"%>
+					</div>
+
+					<div class="form-group">
+						<%= label_tag "Uma breve descrição sobre o que se trata:"%>
+						<%= f.text_area :resume ,class: "form-control col-sm-12",placeholder: "Digite um resumo",required: "required"%>
+					</div>
+
+					<%= f.hidden_field :user_id ,value: current_user.id %>
+					<%=f.submit "Criar",class: "btn btn-danger" %>
+
+					<% end %>
+
+
+
+				</div><!-- modal body -->
+
+		</div><!-- modal content -->
+
+	</div><!-- modal dialog -->
+
+</div>
