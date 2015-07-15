@@ -20,4 +20,3 @@
 /public/uploads/admin
 
 # Ignore config and test files
-/config/database.yml
