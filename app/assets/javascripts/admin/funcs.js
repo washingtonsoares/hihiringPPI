@@ -4,7 +4,7 @@ jQuery(function($) {
     $("#home-top").click();
 
 
-    $('.estrela').on('click', function(){
+    $('.star').on('click', function(){
 
       console.log($(this).data('peso'));
       console.log($("#usuario_c").val());
@@ -17,7 +17,7 @@ jQuery(function($) {
                     xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
                 },success: function(response){
                     $('#tab-avaliacoes').click();
-                    
+
                 }
             });
 

@@ -4009,6 +4009,11 @@ span.customSelect.changed {
     color: #41CAC0;
 }
 
+.rating span.star.nota:before{
+    content: "\f005";
+    color: #41CAC0;
+}
+
 /*search page*/
 
 .classic-search {
